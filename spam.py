@@ -6,6 +6,10 @@ import json
 
 home = 'http://www.youtube.com'
 
+user_agent = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0'}
+ajax = {'X-Requested-With': 'XMLHttpRequest'}
+ajax.update(user_agent)
+
 pats = {
     'config': re.compile(b'ytplayer[.]config.*?(\{.*?\});'),
     'type': re.compile(r'(?P<type>\w+?)/(?P<comp>\w+).*?codecs="(?P<codec>.*?)"'),
