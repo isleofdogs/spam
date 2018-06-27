@@ -91,4 +91,6 @@ class Playlist:
         return items
 
     def __iter__(self):
-        pass
+        for item in self.items:
+            video = Video(item)
+            yield video
