@@ -6,7 +6,7 @@ import json
 
 home = 'http://www.youtube.com'
 
-user_agent = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0'}
+user_agent = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0'}
 ajax = {'X-Requested-With': 'XMLHttpRequest'}
 ajax.update(user_agent)
 
@@ -20,7 +20,7 @@ pats = {
 
 class Video:
     def __init__(self,url):
-        self._html = requests.get(url).content
+        self._html = requests.get(url, headers=user_agent).content
         self._config = self._yt_config()
         self._itag_to_size = self._fmt_map()
 
@@ -80,7 +80,7 @@ class Video:
 
 class Playlist:
     def __init__(self,url,workers=5):
-        self._html = requests.get(url).text
+        self._html = requests.get(url, headers=user_agent).text
         self._soup = BeautifulSoup(self._html,'html.parser')
         self.items = self._playlist_items()
         
