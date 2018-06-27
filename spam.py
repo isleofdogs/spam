@@ -73,3 +73,18 @@ class Video:
         }
 
         return pretty_fmt
+
+class Playlist:
+    def __init__(self,url,workers=5):
+        self._html = requests.get(url).text
+        self._soup = BeautifulSoup(self._html,'html.parser')
+        self.items = self._playlist_items()
+        
+    def _playlist_items(self):
+        a_s = self._soup.find_all('a',class_='pl-video-title-link')
+        #items = [dict(parse_qsl(urlparse(a['href']).query)) for a in a_s]
+        items = [urljoin(home,a) for a in a_s]
+        return items
+
+    def __iter__(self):
+        pass
